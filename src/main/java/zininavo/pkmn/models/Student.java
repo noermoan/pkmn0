@@ -1,7 +1,11 @@
 package zininavo.pkmn.models;
+import lombok.*;
+import zininavo.pkmn.entity.StudentEntity;
 
 import java.io.Serializable;
 
+@Data
+@Builder
 public class Student implements Serializable {
     public static final long serialVersionUID = 1L;
 
@@ -55,5 +59,17 @@ public class Student implements Serializable {
     @Override
     public String toString() {
         return "Имя владельца: " + firstName + " Фамилия: " + surName +" Отчество: " + familyName + " Группа: " + group;
+    }
+
+    public static Student fromEntity(StudentEntity entity) {
+        if (entity != null) {
+            return Student.builder()
+                    .surName(entity.getSurName())
+                    .firstName(entity.getFirstName())
+                    .familyName(entity.getFamilyName())
+                    .group(entity.getGroup())
+                    .build();
+        }
+        return null;
     }
 }
